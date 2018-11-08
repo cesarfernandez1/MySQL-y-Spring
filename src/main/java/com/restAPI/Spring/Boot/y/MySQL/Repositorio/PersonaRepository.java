@@ -5,9 +5,12 @@
  */
 package com.restAPI.Spring.Boot.y.MySQL.Repositorio;
 
+
+import PersonaDao.PersonaDao;
 import com.restAPI.Spring.Boot.y.MySQL.Personas;
-import java.io.Serializable;
-import org.springframework.data.repository.CrudRepository;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +22,53 @@ import org.springframework.transaction.annotation.Transactional;
 //DAO
 @Transactional
 @Repository
-public interface PersonaRepository extends CrudRepository<Personas, Serializable> {
+public class PersonaRepository implements PersonaDao {
 
+    //para llamar a la bases de datos. Representa la configuración para acceder a la base de datos
+    @PersistenceContext	
+    private EntityManager entityManager;
+
+    @Override
+	public Personas getPersonaById(Integer id) {
+		return entityManager.find(Personas.class, id);
+	}
+
+	
+        //sirve para 
+	@SuppressWarnings("unchecked")
+        //sirve para modificar le comportamiento original de esta clase heredada, sobreescribir la clase paddre 
+	@Override
+	public List<Personas> getAllPersonas() {
+		String hql = "FROM Personas as persona ORDER BY persona.id";
+		return (List<Personas>) entityManager.createQuery(hql).getResultList();
+	}
+	@Override
+	public void addPersona(Personas persona) {
+		entityManager.persist(persona);
+	}
+	@Override
+	public void updatePersona(Personas persona) {
+		Personas personaUpdate = getPersonaById(persona.getId());
+		personaUpdate.setNombre(persona.getNombre());
+		entityManager.flush();
+	}
+	@Override
+	public void deletePersona(Integer id) {
+		entityManager.remove(getPersonaById(id));
+	}
+
+    
+        @Override
+    public boolean personaExists(Integer id, String nombre){
+		String hql = "FROM Personas as persona WHERE personas.nombre = ? and personas.id= ?";
+		int count = entityManager.createQuery(hql).setParameter(1,id)
+				.setParameter(2,nombre).getResultList().size();
+		if (count >0 ){
+			return true;
+		}else{
+			return false;
+
+		}
+
+	}
 }
