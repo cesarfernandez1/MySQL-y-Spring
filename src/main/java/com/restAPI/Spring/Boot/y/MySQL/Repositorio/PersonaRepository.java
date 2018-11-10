@@ -5,14 +5,11 @@
  */
 package com.restAPI.Spring.Boot.y.MySQL.Repositorio;
 
-
-import PersonaDao.PersonaDao;
 import com.restAPI.Spring.Boot.y.MySQL.Personas;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import java.io.Serializable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+
 
 /**
  *
@@ -20,12 +17,11 @@ import org.springframework.transaction.annotation.Transactional;
  */
 // CRUD refers Create, Read, Update, DeletE
 //DAO
-@Transactional
-@Repository
-public class PersonaRepository implements PersonaDao {
+@Repository ("personaRepository")
+public interface PersonaRepository extends JpaRepository<Personas, Serializable> {
 
     //para llamar a la bases de datos. Representa la configuración para acceder a la base de datos
-    @PersistenceContext	
+    /*@PersistenceContext	
     private EntityManager entityManager;
 
     @Override
@@ -70,5 +66,5 @@ public class PersonaRepository implements PersonaDao {
 
 		}
 
-	}
+	}*/
 }

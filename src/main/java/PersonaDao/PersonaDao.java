@@ -15,8 +15,7 @@ import java.util.List;
 public interface PersonaDao {
     public List<Personas> getAllPersonas();
     public Personas getPersonaById(Integer id);
-    void addPersona(Personas persona);
+    boolean addPersona(Personas persona);
     void updatePersona(Personas persona);
-    void deletePersona(Integer id);
-    boolean personaExists(Integer id, String nombre);
+    boolean deletePersona(Integer id);
 }

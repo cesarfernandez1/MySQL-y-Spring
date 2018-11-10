@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 /**
@@ -28,10 +29,13 @@ public class Personas implements Serializable{
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
+    @NotNull
     @Column(name="nombre")
     private String nombre;
+    @NotNull
     @Column(name="apellido")
     private String apellido;
+    @NotNull
     @Column(name="legajo")
     private Long legajo;
 
@@ -75,13 +79,5 @@ public class Personas implements Serializable{
 
     public void setLegajo(Long legajo) {
         this.legajo = legajo;
-    }
-
-    @Override
-    public String toString() {
-        return "Personas{" + "id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", legajo=" + legajo + '}';
-    }
-
-   
-    
+    }    
 }

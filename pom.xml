@@ -15,7 +15,11 @@
     <description>Demo-project-for-Spring-Boot</description>
         
     <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent -->
-
+        <parent>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-parent</artifactId>
+            <version>2.1.0.RELEASE</version>
+        </parent>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -24,27 +28,20 @@
     </properties>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
+        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager 
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
             <version>5.3.7.Final</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+         <https://mvnrepository.com/artifact/org.hibernate/hibernate-core
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>5.3.7.Final</version>
-        </dependency>
+        </dependency>-->
 
-        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-parent</artifactId>
-            <version>2.1.0.RELEASE</version>
-            <type>pom</type>
-        </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->
         <dependency>
@@ -95,7 +92,7 @@
         </dependency>
 
         
-        <!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
+        <!--https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>

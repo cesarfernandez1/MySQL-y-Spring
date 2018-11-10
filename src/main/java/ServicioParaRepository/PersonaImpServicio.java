@@ -5,26 +5,27 @@
  */
 package ServicioParaRepository;
 
+import PersonaDao.PersonaDao;
 import com.restAPI.Spring.Boot.y.MySQL.Personas;
 import com.restAPI.Spring.Boot.y.MySQL.Repositorio.PersonaRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Cesar
  */
-@Service
-public class PersonaImpServicio implements PersonaServicio{
+@Service ("personaImpServicio")
+public class PersonaImpServicio implements PersonaDao{
     @Autowired
-    private PersonaServicio personaservicio;
-    @Autowired
+    @Qualifier("personaRepository")
     private PersonaRepository personaRepository;
     
     @Override
     public Personas getPersonaById(Integer id) {
-        Personas obj = personaRepository.getPersonaById(id);
+        Personas obj = personaRepository.getOne(id);
         if (obj == null) {
             return null;
         }
@@ -34,26 +35,27 @@ public class PersonaImpServicio implements PersonaServicio{
 
     @Override
     public List<Personas> getAllPersonas() {
-        return personaRepository.getAllPersonas();
+        return personaRepository.findAll();
     }
 
     @Override
     public synchronized boolean addPersona(Personas persona) {
-        if (personaRepository.personaExists(persona.getId(), persona.getNombre())) {
+        if (personaRepository.existsById(persona.getId())) {
             return false;
         } else {
-            personaRepository.addPersona(persona);
+            personaRepository.save(persona);
             return true;
         }
     }
 
     @Override
     public void updatePersona(Personas persona) {
-        personaRepository.updatePersona(persona);
+        personaRepository.save(persona);
     }
 
     @Override
-    public void deletePersona(Integer id) {
-        personaRepository.deletePersona(id);
+    public boolean deletePersona(Integer id) {
+        personaRepository.deleteById(id);    
+    return true;
     }
     }

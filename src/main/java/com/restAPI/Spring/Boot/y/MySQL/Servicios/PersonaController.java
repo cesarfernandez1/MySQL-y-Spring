@@ -11,7 +11,7 @@ import com.restAPI.Spring.Boot.y.MySQL.Personas;
 //Sirve para 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -36,6 +35,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class PersonaController {
 
     @Autowired
+    @Qualifier("personaRepository")
     private PersonaDao personaDaoServicio;
 
     @GetMapping("/traertodoslosdatos")
