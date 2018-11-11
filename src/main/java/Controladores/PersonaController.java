@@ -18,23 +18,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 
 /**
  *
  * @author Cesar
  */
 @RestController
-@RequestMapping("/api")
 public class PersonaController {
 
     @Autowired
     @Qualifier("personaRepository")
     private PersonaDao personaDaoServicio;
 
-    @GetMapping("/traertodoslosdatos")
+    @GetMapping(path="/traertodoslosdatos")
     public ResponseEntity<List<Personas>> getAllPersonas() {
         List<Personas> list = personaDaoServicio.getAllPersonas();
         if (list.size() == 0) {
@@ -44,20 +41,20 @@ public class PersonaController {
 
     }
 
-    @GetMapping("/traerdatos/{id}")
+    @GetMapping(path="/traerdatos/{id}")
     public ResponseEntity<Personas> getPersonasById(@PathVariable("id") Integer id) {
         Personas persona = personaDaoServicio.getPersonaById(id);
         return new ResponseEntity<Personas>(persona, HttpStatus.OK);
 
     }
 
-    @PostMapping("/agregardatos")
-    public ResponseEntity<Void> addPersonas(@RequestBody Personas persona, UriComponentsBuilder builder) {
+    @PostMapping(path="/agregardatos")
+    public ResponseEntity<Void> addPersonas(@RequestBody Personas persona) {
         personaDaoServicio.addPersona(persona);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
-    @PutMapping("/modificardatos/{id}")
+    @PutMapping(path="/modificardatos/{id}")
     public ResponseEntity<Personas> updatePersona(@RequestBody Personas persona) {
         Personas perUpdate = personaDaoServicio.getPersonaById(persona.getId());
         perUpdate.setNombre(persona.getNombre());
@@ -65,7 +62,7 @@ public class PersonaController {
         return new ResponseEntity<Personas>(perUpdate, HttpStatus.OK);
     }
 
-    @DeleteMapping("/borrardatos/{id}")
+    @DeleteMapping(path="/borrardatos/{id}")
     public ResponseEntity<Void> deletePersona(@PathVariable("id") Integer id) throws Exception {
         personaDaoServicio.deletePersona(id);
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
